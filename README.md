@@ -1,4 +1,4 @@
-# Voice Studio
+# True You Voice
 
 A private, accessible static web app for gender-affirming voice practice. Open to everyone. Microphone analysis and recordings stay in the browser. Device-local profiles separate preferences, practice history, and recordings. No sign-in or email service is required. No analytics, third-party scripts, AI services, or runtime packages.
 
@@ -24,7 +24,7 @@ Color meaning is supplemented by text, numbers, and patterns in every theme. Sam
 The repository includes `.github/workflows/pages.yml`, which tests and deploys only the static app assets.
 
 1. In **Settings → Pages → Build and deployment → Source**, select **GitHub Actions**.
-2. In **Actions → Verify and deploy Voice Studio**, run the workflow on `main` (or push a commit).
+2. In **Actions → Verify and deploy True You Voice**, run the workflow on `main` (or push a commit).
 3. Wait for the deployment to succeed. Open the URL displayed by the deployment job, normally `https://trueyouaura.github.io/voice-studio/`.
 4. Future pushes to `main` test and deploy automatically. No secrets or package installation are needed for Pages. Profiles need no backend setup.
 
@@ -76,3 +76,7 @@ Deterministic tests cover sine and harmonic-rich tones at 44.1/48 kHz, silence/D
 Open **Profile** to create, select, rename, or delete a profile. Each profile has its own goal, theme, pitch range, sessions, and recordings. Guest practice remains separate. Changing profiles is blocked until an active session, review, or temporary recording is finished. The last selected profile is restored on reload. Deleting a profile removes its practice and recordings; deleting practice data keeps the profile name and goal. Other profiles are unaffected.
 
 Nothing contacts Supabase or an email provider. The CSP blocks network connections. Existing guest data and previously cached account practice stay on the device; cached account profiles are recovered as local profiles when available. Browser sign-in tokens from the previous version are removed locally. No remote data is fetched or erased. Export progress and download clips for backups. Browser data deletion can erase profiles permanently. Profiles are an organizational feature, not encryption or access control for a shared browser.
+
+## Brand and Settings
+
+True You Voice uses an original Y-shaped voice mark in `logo.svg` and `favicon.svg`. Settings includes 15 visual palette cards with Light/Dark choices and category filters, local profile editing, optional pitch preferences, and export/deletion controls. Old `#account` links open Settings. Existing storage identifiers and the Pages URL are intentionally retained to preserve local profiles, preferences, and recordings. No account service is used.

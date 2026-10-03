@@ -1,4 +1,4 @@
-name: Verify and deploy Voice Studio
+name: Verify and deploy True You Voice
 on:
   push:
     branches: [main]
@@ -27,7 +27,7 @@ jobs:
       - name: Stage static app only
         run: |
           mkdir -p dist
-          cp profiles.js profiles-store.js index.html styles.css themes.css themes.js app.js pitch.js pitch-worker.js routines.js storage.js favicon.svg .nojekyll dist/
+          cp settings.js logo.svg profiles.js profiles-store.js index.html styles.css themes.css themes.js app.js pitch.js pitch-worker.js routines.js storage.js favicon.svg .nojekyll dist/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

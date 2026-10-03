@@ -19,7 +19,7 @@ function database() {
     req.onupgradeneeded=()=>req.result.createObjectStore('clips',{keyPath:'id'});
     req.onsuccess=()=>{req.result.onversionchange=()=>{req.result.close();opening=null;};resolve(req.result);};
     req.onerror=()=>reject(req.error);
-    req.onblocked=()=>reject(new Error('Close other Voice Studio tabs to use recording storage.'));
+    req.onblocked=()=>reject(new Error('Close other True You Voice tabs to use recording storage.'));
   }).catch(e=>{opening=null;throw e;});
   return opening;
 }

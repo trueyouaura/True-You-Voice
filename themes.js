@@ -2,6 +2,7 @@
 (() => {
   const key = 'voice-studio-theme';
   const choices = ['trans-fem-light','trans-fem-dark','nonbinary-light','nonbinary-dark','trans-masc-light','trans-masc-dark','blue-gold-light','blue-gold-dark','teal-rose-light','teal-rose-dark','monochrome-light','monochrome-dark','ocean-light','ocean-dark','forest-light','forest-dark','sunset-light','sunset-dark','bisexual-light','bisexual-dark','lesbian-light','lesbian-dark','pansexual-light','pansexual-dark','asexual-light','asexual-dark','rainbow-light','rainbow-dark','high-contrast-light','high-contrast-dark'];
+  window.TrueYouThemes = Object.freeze(choices);
   let selected = 'trans-fem-light';
   try { const saved = localStorage.getItem(key); if (choices.includes(saved)) selected = saved; } catch {}
   function apply(value) {
@@ -14,15 +15,6 @@
     window.dispatchEvent(new Event('voice-theme-change'));
   }
   apply(selected);
-  document.addEventListener('DOMContentLoaded', () => {
-    const selector = document.getElementById('theme-select');
-    selector.value = selected;
-    selector.addEventListener('change', () => {
-      apply(selector.value);
-      try { localStorage.setItem(key, selected); }
-      catch { const notice = document.getElementById('notice'); notice.textContent = 'Appearance updated for this visit. Browser storage is unavailable, so this choice cannot be saved.'; notice.hidden = false; notice.classList.add('error'); }
-    });
-  });
   window.addEventListener('voice-theme-apply', event => { apply(event.detail);try { localStorage.setItem(key,selected); } catch {} });
   window.addEventListener('voice-theme-reset', () => { try { localStorage.removeItem(key); } catch {} apply('trans-fem-light'); });
 })();
