@@ -4,7 +4,7 @@ A private, accessible static web app for gender-affirming voice practice. Open t
 
 ## Appearance
 
-Choose **Appearance** in the header: Trans fem, Nonbinary, or Trans masc, each in Light and Dark. The flag-inspired colors change the interface and pitch chart; your training settings remain your own. The selected look is saved locally (`voice-studio-theme`) and kept separately for each profile.
+Choose **Appearance** in the header: Trans fem, Nonbinary, or Trans masc, each in Light and Dark. Six additional color-blind-friendly options are **Blue & gold**, **Teal & rose**, and **Monochrome**, each in Light and Dark. These emphasize contrast and text labels rather than relying on hue alone. The pitch line is solid and chosen-range boundaries are dashed in every appearance. The flag-inspired colors change the interface and pitch chart; your training settings remain your own. The selected look is saved locally (`voice-studio-theme`) and kept separately for each profile.
 
 ## Use
 

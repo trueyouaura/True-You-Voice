@@ -1,5 +1,5 @@
 import {readState,clipStore} from './storage.js';
-import {readProfiles,saveProfiles,validTheme,mergeSessions} from './profiles-store.js';
+import {readProfiles,saveProfiles,validTheme,mergeSessions} from './profiles-store.js?v=color-friendly-1';
 const $=id=>document.getElementById(id),key=id=>`voice-studio-v1:${id}`;
 export function initAccounts(hooks){
  let profiles=readProfiles(localStorage),owner='guest',running=false,applying=false;

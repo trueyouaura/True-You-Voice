@@ -1,5 +1,5 @@
 export const PROFILES_KEY='voice-studio-profiles';
-const themes=['trans-fem-light','trans-fem-dark','nonbinary-light','nonbinary-dark','trans-masc-light','trans-masc-dark'];
+const themes=['trans-fem-light','trans-fem-dark','nonbinary-light','nonbinary-dark','trans-masc-light','trans-masc-dark','blue-gold-light','blue-gold-dark','teal-rose-light','teal-rose-dark','monochrome-light','monochrome-dark'];
 export const validTheme=value=>themes.includes(value)?value:'trans-fem-light';
 export function readProfiles(storage){
  try{const data=JSON.parse(storage.getItem(PROFILES_KEY));if(!Array.isArray(data))return [];
