@@ -44,6 +44,8 @@ Pitch analysis uses a YIN difference estimator on 4096-sample frames, at roughly
 
 The tracker measures fundamental frequency, not resonance, gender, or how a voice will be perceived. Noise, vocal fry, breathiness, and strong harmonics can cause gaps or octave errors.
 
+Microphone capture requests noise suppression, echo cancellation, and automatic input level when the browser supports them. Analysis runs through continuous 60 Hz high-pass and 1600 Hz low-pass filters; MediaRecorder still uses the capture stream. Desk mode accepts YIN differences below 0.25, Very quiet below 0.30, and Nearby below 0.15. The 1024-sample comparison window follows changes within speech while retaining enough lag for the 65–650 Hz range. These settings may trade some precision for coverage; they cannot identify a particular speaker or exclude periodic music. Browser tests include a changing quiet oscillator with equally loud seeded broadband noise and noise-only rejection. Real speech and physical microphones still need user testing.
+
 Recordings use MediaRecorder and the format supported by the browser. Saved clips live in IndexedDB; settings and up to 500 practice summaries use localStorage. Downloads keep the actual recording file extension.
 
 ## Data compatibility

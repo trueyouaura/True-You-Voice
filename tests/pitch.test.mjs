@@ -32,5 +32,25 @@ test('microphone meter shows quiet speech on a bounded logarithmic scale',()=>{
  assert.equal(inputLevel(1),1);assert.equal(inputLevel(2),1);
  assert.ok(inputLevel(.002)>.2);assert.ok(inputLevel(.008)>inputLevel(.002));
 });
+test('desk mode accepts changing voiced sound with noise that the strict mode rejects',()=>{
+ for(const rate of [44100,48000])for(const slope of [0,300,1000]){
+  let seed=7;
+  const speech=Float32Array.from({length:4096},(_,i)=>{
+   seed=(seed*1664525+1013904223)>>>0;const t=i/rate,phase=2*Math.PI*(180*t+slope*t*t);
+   return .02*((1+.4*Math.sin(2*Math.PI*15*t))*Math.sin(phase)+.3*Math.sin(2*phase)+.7*(seed/2**32-.5)*2);
+  });
+  const result=estimatePitch(speech,rate,'desk');
+  // The comparison covers a changing pitch, rather than one exact stationary F0.
+  assert.ok(result.hz>=170&&result.hz<=240,`${rate}, ${slope}: ${result.hz}`);
+  assert.ok(result.confidence>=.75);
+  assert.equal(estimatePitch(speech,rate,'nearby').hz,null);
+ }
+});
+test('more tolerant speech settings still reject many independent noise frames',()=>{
+ for(let seed=1;seed<=40;seed++){
+  let n=seed;const noise=Float32Array.from({length:4096},()=>{n=(n*1664525+1013904223)>>>0;return (n/2**32-.5)*.03;});
+  for(const mode of ['desk','quiet'])assert.equal(estimatePitch(noise,48000,mode).hz,null,`${seed}: ${mode}`);
+ }
+});
 test('routines have advertised durations and resting steps',()=>{for(const [key,seconds] of [['daily',300],['resonance',240],['warmup',180]]){assert.equal(routines[key].steps.reduce((n,s)=>n+s.seconds,0),seconds);assert.ok(routines[key].steps.some(s=>s.title.includes('break')));}});
 test('storage tolerates corruption and validates untrusted settings',()=>{assert.equal(readState({getItem:()=>'{broken'}).sessions.length,0);assert.equal(readState({getItem:()=>JSON.stringify({sessions:[],settings:{low:700,high:1}})}).settings.low,160);let text;const storage={setItem:(_,v)=>text=v,getItem:()=>text};const state={settings:{low:170,high:230,show:false},sessions:[]};writeState(storage,state);assert.deepEqual(readState(storage),state);});

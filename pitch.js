@@ -14,9 +14,11 @@ export function estimatePitch(samples, sampleRate, mode = 'desk') {
   const rms = Math.sqrt(energy / samples.length);
   const empty = { hz: null, confidence: 0, rms, peak };
   if (rms < inputFloor(mode) || !Number.isFinite(sampleRate) || sampleRate <= 0) return empty;
-  const size = Math.floor(samples.length / 2);
-  const maxLag = Math.min(size - 2, Math.ceil(sampleRate / 65));
+  // A shorter comparison window tolerates pitch and loudness changing during speech.
+  const size = Math.min(1024, Math.floor(samples.length / 2));
+  const maxLag = Math.min(samples.length - size - 2, Math.ceil(sampleRate / 65));
   const minLag = Math.max(2, Math.floor(sampleRate / 650));
+  const threshold = mode === 'nearby' ? 0.15 : mode === 'quiet' ? 0.30 : 0.25;
   const difference = new Float32Array(maxLag + 1);
   let sum = 0;
   for (let lag = 1; lag <= maxLag; lag++) {
@@ -27,12 +29,12 @@ export function estimatePitch(samples, sampleRate, mode = 'desk') {
   }
   let lag = minLag;
   for (; lag < maxLag; lag++) {
-    if (difference[lag] < 0.15) {
+    if (difference[lag] < threshold) {
       while (lag + 1 <= maxLag && difference[lag + 1] < difference[lag]) lag++;
       break;
     }
   }
-  if (lag >= maxLag || difference[lag] > 0.15) return empty;
+  if (lag >= maxLag || difference[lag] > threshold) return empty;
   const left = difference[lag - 1], center = difference[lag], right = difference[lag + 1];
   const denominator = 2 * (2 * center - right - left);
   const adjusted = lag + (denominator ? (right - left) / denominator : 0);

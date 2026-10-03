@@ -70,4 +70,6 @@ Settings offers larger text, extra spacing, reduced movement, a manual or hidden
 
 Guided practice includes No countdown: use Next step when ready, pause at any point, and finish early. The session still ends after one hour. Instructions and progress work without sound or a microphone. Voice care includes a plain-language glossary.
 
-Microphone sensitivity defaults to Desk distance for quieter speech. Nearby and Very quiet modes adjust the input floor without relaxing pitch confidence checks or altering recording gain. The input meter uses a logarithmic scale. Around 2 ft / 60 cm can work with a clear microphone signal; distance depends on the microphone, room noise, and system input level.
+Microphone sensitivity defaults to Desk distance for quieter speech. Nearby and Very quiet modes adjust the input floor and speech confidence cutoff. The input meter uses a logarithmic scale. Around 2 ft / 60 cm can work with a clear microphone signal; distance depends on the microphone, room noise, and system input level.
+
+Speech capture requests browser noise suppression, echo cancellation, and automatic input level when supported. Analysis-only high-pass (60 Hz) and low-pass (1600 Hz) filters reduce rumble and hiss; recordings use the browser capture stream rather than the filtered analysis signal. YIN uses a shorter comparison window to follow changing speech. Desk and Very quiet modes tolerate more variation than Nearby mode, while rejecting unvoiced noise. Browser processing and physical microphone behavior vary by device.

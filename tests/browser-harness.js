@@ -1,12 +1,14 @@
 /* Development-only integration fixture. NEVER included in the Pages artifact.
    Generates synthetic audio with Web Audio; does not request physical microphone access. */
-let testAudio, testStream, testGain, mode='tone', resolveDelayed;
-Object.defineProperty(navigator.mediaDevices,'getUserMedia',{value:async()=>{
+let testAudio, testStream, testGain, testNoise, testOscillator, requestedAudio, mode='tone', resolveDelayed;
+Object.defineProperty(navigator.mediaDevices,'getUserMedia',{value:async constraints=>{
+ requestedAudio=constraints.audio;
  if(mode==='deny')throw new DOMException('Test denial','NotAllowedError');
  if(mode==='delayed')await new Promise(resolve=>resolveDelayed=resolve);
  testAudio=new AudioContext();await testAudio.resume();
  const oscillator=testAudio.createOscillator(),gain=testAudio.createGain(),destination=testAudio.createMediaStreamDestination();
- oscillator.frequency.value=180;gain.gain.value=.2;testGain=gain;oscillator.connect(gain);gain.connect(destination);oscillator.start();
+ oscillator.frequency.value=180;gain.gain.value=.2;testGain=gain;testOscillator=oscillator;oscillator.connect(gain);gain.connect(destination);oscillator.start();
+ const noise=testAudio.createBufferSource(),buffer=testAudio.createBuffer(1,48000,testAudio.sampleRate);let seed=19;const channel=buffer.getChannelData(0);for(let i=0;i<channel.length;i++){seed=(seed*1664525+1013904223)>>>0;channel[i]=(seed/2**32-.5)*2;}noise.buffer=buffer;noise.loop=true;testNoise=testAudio.createGain();testNoise.gain.value=0;noise.connect(testNoise);testNoise.connect(destination);noise.start();
  testStream=destination.stream;return testStream;
 }});
 window.addEventListener('DOMContentLoaded',async()=>{
@@ -24,6 +26,10 @@ window.addEventListener('DOMContentLoaded',async()=>{
    chooseMic('nearby');await until(()=>$('pitch-value').textContent==='—');check(true,'Nearby mode filters quiet input without reconnecting');
    chooseMic('quiet');testGain.gain.value=.0008;await wait(500);await until(()=>Math.abs(Number($('pitch-value').textContent)-180)<2);check(localStorage.getItem('true-you-voice-mic-mode')==='quiet','Very quiet mode tracks softer speech and saves the device preference');
    chooseMic('desk');testGain.gain.value=.2;
+   check(requestedAudio.noiseSuppression&&requestedAudio.autoGainControl&&requestedAudio.echoCancellation,'Capture requests browser support for noise reduction and input level');
+   testGain.gain.value=.003;testNoise.gain.value=.003;testOscillator.frequency.setValueAtTime(160,testAudio.currentTime);testOscillator.frequency.linearRampToValueAtTime(220,testAudio.currentTime+2);await wait(400);let tracked=0;for(let n=0;n<10;n++){await wait(150);const hz=Number($('pitch-value').textContent);if(hz>=150&&hz<=235)tracked++;}check(tracked>=8,'Filtered analysis follows changing quiet voiced sound with equally loud broadband noise');
+   testGain.gain.value=0;await wait(600);await until(()=>$('pitch-value').textContent==='—');check(true,'Noise alone leaves a gap rather than holding the last voiced reading');
+   testNoise.gain.value=0;testGain.gain.value=.2;testOscillator.frequency.setValueAtTime(180,testAudio.currentTime);
    $('record-toggle').click();await wait(1500);$('record-toggle').click();await until(()=>!$('clip-draft').hidden);check($('draft-audio').src.startsWith('blob:'),'Real MediaRecorder produces a local playable blob');
    $('clip-name').value='Integration test clip';$('clip-save').click();await until(()=>$('clips-list').textContent.includes('Integration test clip'));check(true,'Recording saves to IndexedDB and appears in library');
    const clipAudio=$('clips-list').querySelector('audio');await until(()=>clipAudio.readyState>=1);check(clipAudio.error===null,'Recorded audio metadata loads without decoding errors');
