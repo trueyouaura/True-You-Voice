@@ -1,10 +1,10 @@
 import {PITCH_PRESETS,matchPitchPreset} from './pitch-presets.js?v=voice-guides-1';
 import './settings.js?v=voice-guides-1';
-import { initAccounts } from './profiles.js?v=launch-1';
+import { initAccounts } from './profiles.js?v=launch-2';
 import { summarize } from './pitch.js';
 import { routines, buildRoutine } from './routines.js';
-import { readState, writeState, clearState, clipStore } from './storage.js?v=launch-1';
-import {initLaunch} from './launch.js?v=launch-1';
+import { readState, writeState, clearState, clipStore } from './storage.js?v=launch-2';
+import {initLaunch} from './launch.js?v=launch-2';
 const $=id=>document.getElementById(id);
 let storageOwner='guest',accounts;const ownerKey=key=>storageOwner==='guest'?key:`${key}:${storageOwner}`;
 const local={getItem:key=>window.localStorage.getItem(ownerKey(key)),setItem:(key,value)=>window.localStorage.setItem(ownerKey(key),value),removeItem:key=>window.localStorage.removeItem(ownerKey(key))};

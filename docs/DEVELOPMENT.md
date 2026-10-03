@@ -76,7 +76,7 @@ Keep documentation and browser fixtures out of the staged site. Microphone acces
 
 ## Backup format and restoration
 
-Full backups are local JSON files with `format: "true-you-voice-backup"`, `version: 1`, and profile entries containing metadata, normalized practice state, and optional base64 audio. File selection never uploads data. Progress-only exports use a different format and are rejected by restore.
+Full backups are local JSON files with `format: "true-you-voice-backup"`, `version: 1`, and profile entries containing metadata, normalized practice state, and optional base64 audio. File selection never uploads data. Progress-only exports use a different format and are rejected by restore. Preparing a backup also exposes a persistent Save backup file link with keyboard focus; it supports a direct user action if automatic downloading is blocked. Its object URL is released on the next backup or page exit.
 
 Restore validates the entire archive before showing a preview. It bounds metadata, history, profile counts, audio types, and sizes, generates fresh owner and recording IDs, writes recordings in a single IndexedDB transaction, and rolls back new records if profile storage fails. Existing profile data is not overwritten. A single profile can be selected from an archive; adding copies remains subject to the 50-profile device limit. Files are limited to 200 MB, audio to 125 MB, and clips to 2,000 per backup. Browser memory or storage constraints can still be lower. Back up fewer profiles or omit recordings when necessary.
 

@@ -1,4 +1,4 @@
-import {readState} from './storage.js?v=launch-1';
+import {readState} from './storage.js?v=launch-2';
 import {normalizeLanguage} from './personalization.js';
 import {validTheme,readProfiles,saveProfiles} from './profiles-store.js';
 
