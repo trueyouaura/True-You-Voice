@@ -20,3 +20,5 @@
 #welcome-dialog{max-width:640px;max-height:calc(100dvh - 32px);overflow:auto;background:var(--paper)}
 #restore-dialog{max-height:calc(100dvh - 32px);overflow:auto;background:var(--paper)}
 @media(max-width:600px){footer{gap:18px;flex-direction:column}.footer-links{gap:16px}#welcome-dialog,#restore-dialog{padding:20px}.welcome-steps li{margin:12px 0}}
+
+.guided-recording blockquote{margin:16px 0;padding:18px;border-left:3px solid var(--green);background:var(--soft);border-radius:0 10px 10px 0;line-height:1.7}.guided-recording h3{font-size:21px}.guided-recording label{margin-top:20px}.guided-recording audio{width:100%}.guided-recording button{white-space:normal}.guided-recording #guided-feedback{border-top:1px solid var(--line);margin-top:24px}
