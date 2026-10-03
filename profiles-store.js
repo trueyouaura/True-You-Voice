@@ -1,0 +1,10 @@
+export const PROFILES_KEY='voice-studio-profiles';
+const themes=['trans-fem-light','trans-fem-dark','nonbinary-light','nonbinary-dark','trans-masc-light','trans-masc-dark'];
+export const validTheme=value=>themes.includes(value)?value:'trans-fem-light';
+export function readProfiles(storage){
+ try{const data=JSON.parse(storage.getItem(PROFILES_KEY));if(!Array.isArray(data))return [];
+ const seen=new Set();return data.filter(p=>p&&/^[a-zA-Z0-9-]{1,80}$/.test(p.id)&&p.id!=='guest'&&typeof p.name==='string'&&p.name.trim()&&!seen.has(p.id)&&(seen.add(p.id),true)).slice(0,50).map(p=>({id:p.id,name:p.name.trim().slice(0,60),goal:typeof p.goal==='string'?p.goal.slice(0,300):'',theme:validTheme(p.theme)}));
+ }catch{return [];}
+}
+export function saveProfiles(storage,profiles){storage.setItem(PROFILES_KEY,JSON.stringify(profiles));}
+export function mergeSessions(a,b){const records=new Map([...a,...b].map(s=>[s.id,s]));return [...records.values()].sort((a,b)=>String(a.date).localeCompare(String(b.date))).slice(-500);}
