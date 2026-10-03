@@ -46,7 +46,7 @@ Recordings use MediaRecorder and the format supported by the browser. Saved clip
 
 ## Data compatibility
 
-Keep the existing `voice-studio-*` storage names and IndexedDB database name. Changing them would separate users from their saved practice. The Pages URL is also retained for that reason.
+Keep the existing `voice-studio-*` storage names and IndexedDB database name. Changing them would separate users from their saved practice. Browser storage belongs to the site's origin, so renaming the repository path under `https://trueyouaura.github.io` preserves access to saved data in the same browser. Moving to a different domain or account would use separate storage.
 
 Guest data and named profiles have separate owners. Profile switching waits until active practice, reflection, and temporary recordings are finished. Cached profiles from earlier versions can be recovered locally, and obsolete sign-in tokens are removed without contacting an account service.
 
@@ -66,7 +66,7 @@ Retain the color-model attribution in the test fixture. References: [Colour’s 
 
 ## Deployment
 
-In GitHub **Settings → Pages**, choose **GitHub Actions** as the source. Push to `main`, or run **Verify and deploy True You Voice** manually. The workflow runs tests, stages the public assets, and publishes to [the existing Pages address](https://trueyouaura.github.io/voice-studio/).
+In GitHub **Settings → Pages**, choose **GitHub Actions** as the source. Push to `main`, or run **Verify and deploy True You Voice** manually. The workflow runs tests, stages the public assets, and publishes to [True You Voice](https://trueyouaura.github.io/True-You-Voice/).
 
 The same static assets can run on another HTTPS host. Use the file list in `.github/workflows/pages.yml`; it is the authoritative deployment list. Serve JavaScript as `text/javascript` and disable directory listing. Suggested response headers are `Permissions-Policy: microphone=(self), camera=()` and `X-Content-Type-Options: nosniff`. A hosting CSP header can add `frame-ancestors 'none'`.
 

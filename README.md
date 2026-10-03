@@ -6,7 +6,7 @@
 
 A True You Aura project. A place to explore your voice, build confidence, and practice at your own pace.
 
-**[Open True You Voice](https://trueyouaura.github.io/voice-studio/)**
+**[Open True You Voice](https://trueyouaura.github.io/True-You-Voice/)**
 
 ## What you can do
 
@@ -53,6 +53,6 @@ See the [development guide](docs/DEVELOPMENT.md) for browser checks, project str
 
 ## Feedback
 
-Found a bug or have an idea? [Open an issue](https://github.com/trueyouaura/voice-studio/issues). Include your browser and what happened, but keep personal recordings and private notes out of public reports.
+Found a bug or have an idea? [Open an issue](https://github.com/trueyouaura/True-You-Voice/issues). Include your browser and what happened, but keep personal recordings and private notes out of public reports.
 
 Maintained by [True You Aura](https://github.com/trueyouaura).

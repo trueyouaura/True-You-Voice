@@ -15,12 +15,12 @@
     "name": "True You Aura",
     "url": "https://github.com/trueyouaura"
   },
-  "homepage": "https://trueyouaura.github.io/voice-studio/",
+  "homepage": "https://trueyouaura.github.io/True-You-Voice/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trueyouaura/voice-studio.git"
+    "url": "https://github.com/trueyouaura/True-You-Voice.git"
   },
   "bugs": {
-    "url": "https://github.com/trueyouaura/voice-studio/issues"
+    "url": "https://github.com/trueyouaura/True-You-Voice/issues"
   }
 }
