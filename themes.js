@@ -23,5 +23,6 @@
       catch { const notice = document.getElementById('notice'); notice.textContent = 'Appearance updated for this visit. Browser storage is unavailable, so this choice cannot be saved.'; notice.hidden = false; notice.classList.add('error'); }
     });
   });
+  window.addEventListener('voice-theme-apply', event => { apply(event.detail);try { localStorage.setItem(key,selected); } catch {} });
   window.addEventListener('voice-theme-reset', () => { try { localStorage.removeItem(key); } catch {} apply('trans-fem-light'); });
 })();

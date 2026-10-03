@@ -23,13 +23,17 @@ function database() {
   }).catch(e=>{opening=null;throw e;});
   return opening;
 }
-export async function clipStore(action,value) {
+export async function clipStore(action,value,owner='guest') {
   const db=await database();
   return new Promise((resolve,reject)=>{
     const tx=db.transaction('clips',action==='list'?'readonly':'readwrite');
     const store=tx.objectStore('clips');
-    const req=action==='list'?store.getAll():action==='save'?store.put(value):action==='delete'?store.delete(value):store.clear();
-    tx.oncomplete=()=>resolve(req.result);
+    let req;
+    if(action==='list')req=store.getAll();
+    else if(action==='save')req=store.put(value);
+    else if(action==='delete'){req=store.get(value);req.onsuccess=()=>{if(req.result&&(req.result.profileId||'guest')===owner)store.delete(value);};}
+    else{req=store.openCursor();req.onsuccess=()=>{const cursor=req.result;if(!cursor)return;if((cursor.value.profileId||'guest')===owner)cursor.delete();cursor.continue();};}
+    tx.oncomplete=()=>resolve(action==='list'?req.result.filter(clip=>(clip.profileId||'guest')===owner):undefined);
     tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||new Error('Storage operation was interrupted.'));
   });
 }

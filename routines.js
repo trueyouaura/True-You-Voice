@@ -9,3 +9,20 @@ export const routines = {
  resonance: { name:'Resonance exploration', steps:[settle,resonance,rest,{...phrase,seconds:90},cooldown] },
  warmup: { name:'Gentle warmup', steps:[settle,hum,rest,{...hum,title:'An easy variation',seconds:45,copy:'Repeat a few short, comfortable hums. If it feels easy, make a tiny pitch glide within your normal range, then return. Rest after each 2–3 second sound.',prompt:'A small glide. A long rest.'},cooldown] }
 };
+
+export const sessionLengths = [10,15,20,30,45,60];
+export function buildRoutine(key, minutes=0) {
+ const base=routines[key]||routines.daily;
+ if(!sessionLengths.includes(minutes))return base;
+ const listen={title:'Listen and notice',seconds:45,copy:'Rest your voice. If you have a saved clip, listen once. Notice ease, expression, and one sound you like. You can also imagine how you want an everyday sentence to feel.',prompt:'Listen with curiosity. Leave the judging aside.',safety:'Stay silent during this step. Playback disconnects the microphone; reconnect only if you want feedback later.'};
+ const longRest={...rest,title:'A longer silent break',seconds:120,copy:'Take a full silent break. Breathe normally, sip water, and relax your jaw. Check for fatigue. Finishing early is always an option.',prompt:'Rest. Reset. Continue only if comfortable.'};
+ const exercise=key==='warmup'?{...hum,seconds:45}:key==='resonance'?{...resonance,seconds:45}:{...phrase,seconds:45};
+ const transfer={...phrase,title:'A small everyday conversation',seconds:45,copy:'Say one or two short sentences as though greeting a friend or ordering a drink. Explore one easy change, then rest for the rest of the step.',prompt:'“Hi! How has your day been?”'};
+ const steps=[{...settle},{...hum},{...rest}];
+ let remaining=minutes*60-steps.reduce((n,s)=>n+s.seconds,0)-cooldown.seconds;
+ const cycle=[exercise,{...rest,seconds:45},listen,transfer,longRest];
+ let index=0;
+ while(remaining>0){const next=cycle[index++%cycle.length],seconds=Math.min(next.seconds,remaining);steps.push({...next,seconds});remaining-=seconds;}
+ steps.push({...cooldown});
+ return {name:`${base.name} · ${minutes} minutes`,steps};
+}
