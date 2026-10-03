@@ -2,6 +2,10 @@
 
 A private, accessible static web app for gender-affirming voice practice. Built for Spencer; everything from microphone analysis to recordings stays in the browser. No dependencies, backend, accounts, analytics, AI services, or paid APIs.
 
+## Appearance
+
+Choose **Appearance** in the header: Trans fem, Nonbinary, or Trans masc, each in Light and Dark. The flag-inspired colors change the interface and pitch chart; your training settings remain your own. The selected look is saved locally (`voice-studio-theme`) and restored before the stylesheet loads. Deleting all local app data resets it.
+
 ## Use
 
 1. Open the HTTPS site directly in a current Chrome, Edge, Firefox, or Safari browser.
@@ -24,7 +28,7 @@ The repository includes `.github/workflows/pages.yml`, which tests and deploys o
 
 If your connector cannot write workflow files, the app also supports **Deploy from a branch → main → /(root)**. `.nojekyll` disables Jekyll. This fallback serves the repository files publicly and bypasses the test gate; the Actions artifact is preferable because it includes only public runtime assets.
 
-Any HTTPS static host can serve these files together: `index.html`, `styles.css`, `app.js`, `pitch.js`, `pitch-worker.js`, `routines.js`, `storage.js`, `favicon.svg`. All asset URLs are relative, so project subpaths work. Configure JavaScript as `text/javascript`, disable directory listing, and optionally add response headers `Permissions-Policy: microphone=(self), camera=()` and `X-Content-Type-Options: nosniff`. CSP is supplied in the HTML; a hosting header can additionally enforce `frame-ancestors 'none'`.
+Any HTTPS static host can serve these files together: `index.html`, `styles.css`, `themes.css`, `themes.js`, `app.js`, `pitch.js`, `pitch-worker.js`, `routines.js`, `storage.js`, `favicon.svg`. All asset URLs are relative, so project subpaths work. Configure JavaScript as `text/javascript`, disable directory listing, and optionally add response headers `Permissions-Policy: microphone=(self), camera=()` and `X-Content-Type-Options: nosniff`. CSP is supplied in the HTML; a hosting header can additionally enforce `frame-ancestors 'none'`.
 
 ## Local preview and tests
 
