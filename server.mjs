@@ -1,0 +1,6 @@
+// Dependency-free localhost preview. Production deploys only static assets.
+import http from 'node:http';
+import { readFile } from 'node:fs/promises';
+import { resolve, extname, sep } from 'node:path';
+const root=resolve(import.meta.dirname), types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml'};
+http.createServer(async(req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname),test=pathname==='/__test';const path=resolve(root,'.'+pathname);if(path!==root&&!path.startsWith(root+sep))throw new Error();const file=test||path===root?resolve(root,'index.html'):path;let data=await readFile(file);if(test)data=Buffer.from(data.toString().replace('<script type="module" src="./app.js"></script>','<script src="./tests/browser-harness.js"></script><script type="module" src="./app.js"></script>'));res.writeHead(200,{'Content-Type':types[extname(file)]||'text/html','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Permissions-Policy':'microphone=(self), camera=()'});res.end(data);}catch{res.writeHead(404);res.end('Not found');}}).listen(4173,'127.0.0.1',()=>console.log('Voice Studio: http://127.0.0.1:4173'));
