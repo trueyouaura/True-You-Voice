@@ -1,12 +1,19 @@
 /** YIN difference estimator. Pure function shared by worker and deterministic tests. */
-export function estimatePitch(samples, sampleRate) {
+export function inputFloor(mode = 'desk') {
+  return mode === 'nearby' ? 0.008 : mode === 'quiet' ? 0.0003 : 0.001;
+}
+// Logarithmic display makes quiet speech visible without amplifying captured audio.
+export function inputLevel(rms) {
+  return Number.isFinite(rms) && rms > 0 ? Math.max(0, Math.min(1, (20 * Math.log10(rms) + 72) / 72)) : 0;
+}
+export function estimatePitch(samples, sampleRate, mode = 'desk') {
   let mean = 0, energy = 0, peak = 0;
   for (const x of samples) { mean += x; peak = Math.max(peak, Math.abs(x)); }
   mean /= samples.length;
   for (const x of samples) energy += (x - mean) ** 2;
   const rms = Math.sqrt(energy / samples.length);
   const empty = { hz: null, confidence: 0, rms, peak };
-  if (rms < 0.008 || !Number.isFinite(sampleRate) || sampleRate <= 0) return empty;
+  if (rms < inputFloor(mode) || !Number.isFinite(sampleRate) || sampleRate <= 0) return empty;
   const size = Math.floor(samples.length / 2);
   const maxLag = Math.min(size - 2, Math.ceil(sampleRate / 65));
   const minLag = Math.max(2, Math.floor(sampleRate / 650));

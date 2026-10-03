@@ -69,3 +69,5 @@ Use Settings → Download full backup to save profiles, preferences, wording, hi
 Settings offers larger text, extra spacing, reduced movement, a manual or hidden pitch chart, and optional screen reader pitch summaries. Focus view hides extra practice panels while retaining controls and safety guidance. These choices belong to each local profile and travel in full backups. Reduced movement and comfortable spacing are the defaults.
 
 Guided practice includes No countdown: use Next step when ready, pause at any point, and finish early. The session still ends after one hour. Instructions and progress work without sound or a microphone. Voice care includes a plain-language glossary.
+
+Microphone sensitivity defaults to Desk distance for quieter speech. Nearby and Very quiet modes adjust the input floor without relaxing pitch confidence checks or altering recording gain. The input meter uses a logarithmic scale. Around 2 ft / 60 cm can work with a clear microphone signal; distance depends on the microphone, room noise, and system input level.
