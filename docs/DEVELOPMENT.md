@@ -80,7 +80,7 @@ Full backups are local JSON files with `format: "true-you-voice-backup"`, `versi
 
 Restore validates the entire archive before showing a preview. It bounds metadata, history, profile counts, audio types, and sizes, generates fresh owner and recording IDs, writes recordings in a single IndexedDB transaction, and rolls back new records if profile storage fails. Existing profile data is not overwritten. A single profile can be selected from an archive; adding copies remains subject to the 50-profile device limit. Files are limited to 200 MB, audio to 125 MB, and clips to 2,000 per backup. Browser memory or storage constraints can still be lower. Back up fewer profiles or omit recordings when necessary.
 
-The first-visit guide uses `true-you-voice-welcome-v1` to remember dismissal. Its dialog can be reopened using Getting started. Feedback currently routes to the in-app status information while the private Google Form responder URL is pending. No site link routes to GitHub. When wiring the form, use its responder URL, a new tab with noopener/noreferrer, and a notice that Google receives submitted feedback. Keep View results summary disabled; do not prefill or attach local practice data.
+The first-visit guide uses `true-you-voice-welcome-v1` to remember dismissal. Its dialog can be reopened using Getting started. Feedback links open the public responder form in a new tab with noopener/noreferrer. The form editor and responses remain private. The site explains that Google receives submitted feedback and does not attach local practice data. Keep View results summary disabled, contact information optional, and sign-in requirements off.
 
 ## Real-device release checks
 

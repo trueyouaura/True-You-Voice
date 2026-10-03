@@ -56,7 +56,7 @@ See the [development guide](docs/DEVELOPMENT.md) for browser checks, project str
 
 ## Feedback
 
-A private Google Form will collect feedback once its responder link is configured. The site currently routes Feedback to the status information on Voice care & privacy, and does not send visitors to GitHub. Keep response summaries private and email collection optional. No practice data or recordings are attached automatically.
+[Send private feedback](https://docs.google.com/forms/d/e/1FAIpQLSfRU3ACTbaqj066-76gbAG_begX28x3xOAefmXgA1a9CtZsuQ/viewform?usp=header) through Google Forms. Contact information is optional. The website does not attach practice data, notes, or recordings. Responses are not published to GitHub.
 
 Maintained by [True You Aura](https://github.com/trueyouaura).
 
