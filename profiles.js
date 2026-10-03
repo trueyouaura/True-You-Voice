@@ -1,5 +1,5 @@
 import {normalizeLanguage,PRONOUN_CHOICES,languageCopy} from './personalization.js?v=profile-language-1';
-import {readState,clipStore} from './storage.js';
+import {readState,clipStore} from './storage.js?v=launch-1';
 import {readProfiles,saveProfiles,validTheme,mergeSessions} from './profiles-store.js?v=profile-language-1';
 const $=id=>document.getElementById(id),key=id=>`voice-studio-v1:${id}`;
 export function initAccounts(hooks){
@@ -33,5 +33,9 @@ export function initAccounts(hooks){
  $('profile-delete').onclick=()=>{if(!ready())return;const p=current();if(!p)return;hooks.ask('Delete this local profile?',`This removes “${p.name}”, its practice history, preferences, and recordings from this browser. Export progress and download recordings first if you want to keep them.`,async()=>{if(!ready())return;await clipStore('clear',undefined,p.id);const next=profiles.filter(item=>item.id!==p.id);saveProfiles(localStorage,next);profiles=next;localStorage.removeItem(key(p.id));localStorage.removeItem(`voice-studio-pending:${p.id}`);await switchTo('guest',false);status('Profile deleted from this browser.');});};
  window.addEventListener('voice-theme-change',changed);
  paint();let selected='guest';try{selected=localStorage.getItem('voice-studio-active-profile')||'guest';}catch{}if(selected!=='guest')switchTo(selected,false);
- return {changed,get owner(){return owner;},get loading(){return running;},async clearPractice(){await clipStore('clear',undefined,owner);hooks.setState({settings:{low:160,high:220,show:true},sessions:[]},owner);if(!changed())throw Error('Could not save cleared practice.');}};
+ return {changed,get owner(){return owner;},get loading(){return running;},snapshot(all=false){
+  if(!changed())throw Error('Could not save current practice before backing up.');
+  const guest={id:'guest',name:'Guest practice',goal:'',theme:guestTheme,language:guestLanguage};
+  return (all?[guest,...profiles]:[current()||guest]).map(p=>({...p,state:readState({getItem:()=>localStorage.getItem(p.id==='guest'?'voice-studio-v1':key(p.id))})}));
+ },async refresh(){profiles=readProfiles(localStorage);await switchTo(owner,false);},async clearPractice(){await clipStore('clear',undefined,owner);hooks.setState({settings:{low:160,high:220,show:true},sessions:[]},owner);if(!changed())throw Error('Could not save cleared practice.');}};
 }

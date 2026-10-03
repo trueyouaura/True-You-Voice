@@ -16,6 +16,7 @@ A True You Aura project. A place to explore your voice, build confidence, and pr
 - Create a local profile for your goals, pronouns, settings, and practice history.
 - Make the space your own with 28 appearances, including monochrome and high-contrast options.
 - Choose a labeled pitch guide or set your own comfortable range.
+- Back up and restore profiles, history, preferences, and optional recordings between devices.
 
 Pitch is one part of voice. The guides are starting examples, not scores or rules about gender.
 
@@ -29,7 +30,7 @@ In **Settings**, create a profile, choose your appearance, and adjust your tagli
 
 Audio is processed in your browser. Recordings, profiles, and notes stay on that device; there are no accounts, uploads, or analytics. The host still receives ordinary page requests.
 
-Profiles do not sync and are not password-protected. Other people using the same browser can switch between them. Export progress and download recordings before clearing browser data or changing devices.
+Profiles do not automatically sync and are not password-protected. Other people using the same browser can switch between them. Download a full backup before clearing browser data or changing devices.
 
 ## Take care of your voice
 
@@ -56,3 +57,7 @@ See the [development guide](docs/DEVELOPMENT.md) for browser checks, project str
 Found a bug or have an idea? [Open an issue](https://github.com/trueyouaura/True-You-Voice/issues). Include your browser and what happened, but keep personal recordings and private notes out of public reports.
 
 Maintained by [True You Aura](https://github.com/trueyouaura).
+
+## Backups and moving devices
+
+Use Settings → Download full backup to save profiles, preferences, wording, history, and optional recordings. Choose a backup to restore on the other device. Restored profiles are separate copies; existing profiles are kept. Keep backup files private: they are unencrypted and can contain personal notes and audio. Temporary clips and unsaved form edits are excluded. Progress-only exports cannot be restored as full backups.

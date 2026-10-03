@@ -30,6 +30,8 @@ export async function clipStore(action,value,owner='guest') {
     const store=tx.objectStore('clips');
     let req;
     if(action==='list')req=store.getAll();
+    else if(action==='saveMany')for(const clip of value)store.add(clip);
+    else if(action==='deleteMany')for(const id of value)store.delete(id);
     else if(action==='save')req=store.put(value);
     else if(action==='delete'){req=store.get(value);req.onsuccess=()=>{if(req.result&&(req.result.profileId||'guest')===owner)store.delete(value);};}
     else{req=store.openCursor();req.onsuccess=()=>{const cursor=req.result;if(!cursor)return;if((cursor.value.profileId||'guest')===owner)cursor.delete();cursor.continue();};}

@@ -1,9 +1,10 @@
 import {PITCH_PRESETS,matchPitchPreset} from './pitch-presets.js?v=voice-guides-1';
 import './settings.js?v=voice-guides-1';
-import { initAccounts } from './profiles.js?v=voice-guides-1';
+import { initAccounts } from './profiles.js?v=launch-1';
 import { summarize } from './pitch.js';
 import { routines, buildRoutine } from './routines.js';
-import { readState, writeState, clearState, clipStore } from './storage.js';
+import { readState, writeState, clearState, clipStore } from './storage.js?v=launch-1';
+import {initLaunch} from './launch.js?v=launch-1';
 const $=id=>document.getElementById(id);
 let storageOwner='guest',accounts;const ownerKey=key=>storageOwner==='guest'?key:`${key}:${storageOwner}`;
 const local={getItem:key=>window.localStorage.getItem(ownerKey(key)),setItem:(key,value)=>window.localStorage.setItem(ownerKey(key),value),removeItem:key=>window.localStorage.removeItem(ownerKey(key))};
@@ -65,3 +66,4 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){if(session
 window.addEventListener('pagehide',()=>{generation++;stream?.getTracks().forEach(t=>t.stop());stopRecording();worker?.terminate();});
 showStep();sessionUI();renderProgress();route();
 accounts=initAccounts({getState:()=>state,busy:()=>!!(session||review||draft||recorder),stop:disconnect,notify,ask,setState:(next,owner,reset=true)=>{storageOwner=owner;state=next;syncPitchSettings();renderProgress();drawChart();if(reset){history=[];renderClips();}}});
+initLaunch({busy:()=>!!(session||review||draft||recorder||stream||connecting||accounts.loading),snapshot:all=>accounts.snapshot(all),refresh:()=>accounts.refresh(),download});

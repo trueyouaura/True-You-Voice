@@ -19,6 +19,7 @@ The preview server runs at `http://127.0.0.1:4173`. It sets local development he
 | --- | --- |
 | `/__test` | Synthetic 180 Hz input, worker analysis, recording/playback, storage, timers, safe note rendering, permission denial, and cancellation |
 | `/__accounts` | Profile isolation, pronouns, taglines, appearances, pitch presets, recordings, guest history, and deletion |
+| `/__launch` | Welcome focus and navigation, local backup/export scopes, restore preview and selection, profile preservation, synthetic recording decoding, invalid files, cancellation, and active-session guards |
 | `/__appearance` | Rendered palette contrast under sampled color-vision transformations |
 
 Open each page and use its check button. Audio tests supply synthetic sound and do not request a physical microphone. Test pages are excluded from deployment. Use a separate browser profile for testing: the fixtures create temporary practice data and restore saved settings afterward.
@@ -36,6 +37,7 @@ Automated tests cover pitch estimation at 44.1 and 48 kHz, signal rejection, sum
 | `pitch-presets.js`, `routines.js` | Optional pitch guides and practice prompts |
 | `profiles.js`, `profiles-store.js`, `personalization.js` | Local profiles, validation, pronouns, and wording |
 | `storage.js` | Session settings and recording storage |
+| `backup-data.js`, `launch.js` | Validated portable backups, additive restore, and welcome guide |
 | `logo.svg`, `favicon.svg` | Brand mark |
 
 Pitch analysis uses a YIN difference estimator on 4096-sample frames, at roughly 12.5 updates per second. Quiet-signal and confidence gates reject uncertain input; a three-frame median smooths the display. The estimation range is 65–650 Hz. Silence and uncertain sound leave chart gaps.
@@ -71,3 +73,24 @@ In GitHub **Settings → Pages**, choose **GitHub Actions** as the source. Push 
 The same static assets can run on another HTTPS host. Use the file list in `.github/workflows/pages.yml`; it is the authoritative deployment list. Serve JavaScript as `text/javascript` and disable directory listing. Suggested response headers are `Permissions-Policy: microphone=(self), camera=()` and `X-Content-Type-Options: nosniff`. A hosting CSP header can add `frame-ancestors 'none'`.
 
 Keep documentation and browser fixtures out of the staged site. Microphone access needs HTTPS or localhost. See [GitHub’s Pages source instructions](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) for hosting setup.
+
+## Backup format and restoration
+
+Full backups are local JSON files with `format: "true-you-voice-backup"`, `version: 1`, and profile entries containing metadata, normalized practice state, and optional base64 audio. File selection never uploads data. Progress-only exports use a different format and are rejected by restore.
+
+Restore validates the entire archive before showing a preview. It bounds metadata, history, profile counts, audio types, and sizes, generates fresh owner and recording IDs, writes recordings in a single IndexedDB transaction, and rolls back new records if profile storage fails. Existing profile data is not overwritten. A single profile can be selected from an archive; adding copies remains subject to the 50-profile device limit. Files are limited to 200 MB, audio to 125 MB, and clips to 2,000 per backup. Browser memory or storage constraints can still be lower. Back up fewer profiles or omit recordings when necessary.
+
+The first-visit guide uses `true-you-voice-welcome-v1` to remember dismissal. Its dialog can be reopened using Getting started. Feedback links open public GitHub issues and explicitly ask visitors not to post names, notes, recordings, or backup files.
+
+## Real-device release checks
+
+Before a broad launch, run this checklist on iPhone/Safari, Android/Chrome, desktop Firefox, and desktop Safari. The available automated and synthetic Chromium checks do not certify those devices.
+
+- Open the HTTPS site; use the welcome guide with keyboard or screen reader where available.
+- Create a disposable profile. Check narrow-screen layout, theme selection, pronouns, and pitch preferences.
+- Allow the physical microphone, speak comfortably, and confirm live pitch responds. Test denial and reconnection.
+- Record a short clip, save it, play it, and download it. Verify microphone capture stops when hidden or disconnected.
+- Save a brief guided session and reload to confirm persistence.
+- Download a full backup, restore it as a separate profile, and confirm wording, history, preferences, and audio playback.
+- Test a backup on a second device; browser audio-format support can differ. An unsupported format may still be downloadable even when playback is unavailable.
+- Check that dialog controls remain reachable, text does not overflow, and focus stays visible in light/dark and high-contrast themes.

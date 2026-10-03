@@ -13,3 +13,10 @@
 .orb svg{display:block;width:64px;height:64px;flex-shrink:0;color:var(--orb-ink)}.pronoun-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.personal-wording fieldset{min-width:0}.pronoun-fields label{min-width:0}.personal-wording{max-width:none!important}#language-form{max-width:850px}#practice-encouragement,#progress-encouragement{font-size:13px;max-width:650px}#studio-heading{overflow-wrap:anywhere}#studio-tagline{white-space:pre-wrap;overflow-wrap:anywhere}@media(max-width:700px){.pronoun-fields{grid-template-columns:1fr;gap:0}.orb svg{width:56px;height:56px}}
 
 .pronoun-fields>div{min-width:0}
+[id="backup-file"]{display:block;max-width:100%;margin-top:8px;font-size:12px}
+.footer-links{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.footer-links button{padding:0;font:inherit;border:0;background:none;color:inherit;text-decoration:underline}
+.welcome-steps{padding-left:22px}.welcome-steps li{margin:16px 0;line-height:1.65;color:var(--muted)}.welcome-steps strong{color:var(--ink)}
+#welcome-dialog{max-width:640px;max-height:calc(100dvh - 32px);overflow:auto;background:var(--paper)}
+#restore-dialog{max-height:calc(100dvh - 32px);overflow:auto;background:var(--paper)}
+@media(max-width:600px){footer{gap:18px;flex-direction:column}.footer-links{gap:16px}#welcome-dialog,#restore-dialog{padding:20px}.welcome-steps li{margin:12px 0}}
