@@ -1,6 +1,6 @@
 // All appearance controls remain native inputs for keyboard and assistive technology.
 const palettes=[
- ['trans-fem','Trans fem','pride'],['nonbinary','Nonbinary','pride'],
+ ['trans-fem','Transgender','pride'],['nonbinary','Nonbinary','pride'],
  ['bisexual','Bisexual','pride'],['lesbian','Lesbian','pride'],['pansexual','Pansexual','pride'],['asexual','Asexual','pride'],['rainbow','Rainbow Pride','pride'],
  ['ocean','Ocean','nature'],['forest','Forest','nature'],['sunset','Sunset','nature'],
  ['blue-gold','Blue & gold','accessible'],['teal-rose','Teal & rose','accessible'],['monochrome','Monochrome','accessible'],['high-contrast','High Contrast','accessible']
