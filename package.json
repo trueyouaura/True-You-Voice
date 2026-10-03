@@ -1,1 +1,26 @@
-{"name":"voice-studio","version":"1.0.0","private":true,"type":"module","scripts":{"test":"node --test tests/*.test.mjs","start":"node server.mjs"},"engines":{"node":">=22"}}
+{
+  "name": "true-you-voice",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "description": "True You Aura’s private voice practice space, with live pitch, guided sessions, and local profiles.",
+  "author": {
+    "name": "True You Aura",
+    "url": "https://github.com/trueyouaura"
+  },
+  "homepage": "https://trueyouaura.github.io/voice-studio/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueyouaura/voice-studio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/trueyouaura/voice-studio/issues"
+  }
+}
