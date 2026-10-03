@@ -80,7 +80,7 @@ Full backups are local JSON files with `format: "true-you-voice-backup"`, `versi
 
 Restore validates the entire archive before showing a preview. It bounds metadata, history, profile counts, audio types, and sizes, generates fresh owner and recording IDs, writes recordings in a single IndexedDB transaction, and rolls back new records if profile storage fails. Existing profile data is not overwritten. A single profile can be selected from an archive; adding copies remains subject to the 50-profile device limit. Files are limited to 200 MB, audio to 125 MB, and clips to 2,000 per backup. Browser memory or storage constraints can still be lower. Back up fewer profiles or omit recordings when necessary.
 
-The first-visit guide uses `true-you-voice-welcome-v1` to remember dismissal. Its dialog can be reopened using Getting started. Feedback links open public GitHub issues and explicitly ask visitors not to post names, notes, recordings, or backup files.
+The first-visit guide uses `true-you-voice-welcome-v1` to remember dismissal. Its dialog can be reopened using Getting started. Feedback currently routes to the in-app status information while the private Google Form responder URL is pending. No site link routes to GitHub. When wiring the form, use its responder URL, a new tab with noopener/noreferrer, and a notice that Google receives submitted feedback. Keep View results summary disabled; do not prefill or attach local practice data.
 
 ## Real-device release checks
 
@@ -94,3 +94,11 @@ Before a broad launch, run this checklist on iPhone/Safari, Android/Chrome, desk
 - Download a full backup, restore it as a separate profile, and confirm wording, history, preferences, and audio playback.
 - Test a backup on a second device; browser audio-format support can differ. An unsupported format may still be downloadable even when playback is unavailable.
 - Check that dialog controls remain reachable, text does not overflow, and focus stays visible in light/dark and high-contrast themes.
+
+## Reading and cognitive accessibility
+
+`reading-prefs.js` validates per-profile display preferences. `accessibility.js` applies them and `accessibility.css` supplies rem-based reading text, wrapping, 48px controls, optional spacing, reduced motion, and focus view. Guest preferences use `voice-studio-guest-reading`; named profiles store reading metadata in the existing registry. Old profiles and backups receive safe defaults. Full backup version 1 remains compatible.
+
+The pitch worker still analyzes every sample; visual values update at most four times per second. Live chart updates can be manual or hidden. Screen reader pitch announcements are off by default and occur at most once per eight seconds when enabled. Timer ticks are not live regions. Step changes and pause/resume are announced. No-countdown practice advances manually, disables Next while paused, and stops after one hour; silent breaks remain in its plan.
+
+Local preview `/__accessibility` checks profile preferences, manual session controls, announcement stability, and all six views at 320px with extra-large text. Automated checks are useful evidence, not WCAG certification or a disability friendliness score. Test VoiceOver, NVDA, TalkBack, keyboard-only use, browser zoom, and people with cognitive, sensory, and motor access needs before making broad claims.

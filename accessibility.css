@@ -1,0 +1,28 @@
+/* Larger, resizable type and comfortable spacing without loading external fonts. */
+:root{font-size:16px}html[data-text="large"]{font-size:18px}html[data-text="extra"]{font-size:20px}
+p,.care-list li,.practice-map p{font-size:1rem;line-height:1.7}.small,footer,.pitch-display p{font-size:.875rem;line-height:1.7}
+label,input,select,textarea,button,.button,.controls button,.textlink,.header-settings{font-size:1rem}
+button,.button,select,input:not([type="checkbox"]):not([type="radio"]){min-height:48px}button,.button{white-space:normal}
+h1{font-size:clamp(1.8rem,2.7vw,2.7rem)}h2{font-size:1.5rem}h3{font-size:1.15rem}
+.eyebrow{font-size:.75rem}.sidebar nav a{font-size:.95rem}.sidebar>.eyebrow{font-size:.75rem}.sidebar-note small,.brandtag,.legend,.chart-heading{font-size:.75rem}
+.palette-caption{font-size:.95rem}.palette-selected,.badge,.privacy-pill,.daybadge{font-size:.8rem}
+p,li,h1,h2,h3,label,.session-row,.profile-badge{overflow-wrap:anywhere}p{max-width:70ch}
+html[data-spacing="comfortable"] :is(p,li,label,input,select,textarea,button,.button){line-height:1.8;letter-spacing:.015em;word-spacing:.035em}
+html[data-spacing="comfortable"] :is(p,li){margin-bottom:1em}
+.access-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:26px}.access-toolbar button{font-size:.95rem}.access-toolbar a{font-size:.95rem}
+.reading-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.reading-controls>div{min-width:0}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.plain-help{padding:14px 18px;border:1px solid var(--line);border-radius:12px;margin:16px 0;background:var(--soft)}
+details>summary{cursor:pointer;min-height:48px;padding:10px 0;font-size:1.1rem;font-weight:650;line-height:1.6}summary:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+details[open]>summary{margin-bottom:16px}.term-list dt{font-weight:650;margin-top:16px}.term-list dd{margin:6px 0 16px;line-height:1.8}
+html[data-focus="true"] [data-focus-extra]{display:none!important}
+html[data-focus="true"] .studio-grid,html[data-focus="true"] #practice .practice-grid{grid-template-columns:minmax(0,1fr)}
+html[data-focus="true"] .sidebar-note{display:none}
+html[data-chart="hidden"] #chart-panel{display:none}
+html[data-motion="reduce"] *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+#practice[data-untimed="true"] .timer{font-size:2rem;letter-spacing:0}
+#studio-safety{border-left:4px solid var(--green);padding:12px 16px;background:var(--soft);border-radius:8px}
+#step-prompt{font-size:1.25rem;line-height:1.8}
+@media(max-width:1000px){html[data-text="extra"] .studio-grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:700px){.reading-controls{grid-template-columns:1fr}.access-toolbar{gap:10px}.sidebar nav a{font-size:.9rem}.palette-caption{font-size:.9rem}.header-settings{font-size:.95rem}.topbar .brand{font-size:1.1rem}dialog{padding:20px}.controls .button,.controls button{max-width:100%}.session-title blockquote{font-size:1.15rem}.cardheading{flex-wrap:wrap}.brandtag{display:none}}
+@media(forced-colors:active){.plain-help,#studio-safety{border:1px solid CanvasText}summary:focus-visible{outline-color:Highlight}}

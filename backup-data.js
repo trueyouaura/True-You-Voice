@@ -1,6 +1,7 @@
-import {readState} from './storage.js?v=dark-default-1';
+import {readState} from './storage.js?v=access-1';
 import {normalizeLanguage} from './personalization.js';
-import {validTheme,readProfiles,saveProfiles} from './profiles-store.js?v=dark-default-1';
+import {validTheme,readProfiles,saveProfiles} from './profiles-store.js?v=access-1';
+import {normalizeReading} from './reading-prefs.js?v=access-1';
 
 export const MAX_BACKUP_BYTES=200*1024*1024;
 const MAX_AUDIO_BYTES=125*1024*1024;
@@ -23,14 +24,14 @@ export function validateBackup(value){
    bytes+=c.audio.length*3/4-(c.audio.endsWith('==')?2:c.audio.endsWith('=')?1:0);if(bytes>MAX_AUDIO_BYTES)fail('Audio in a backup must be under 125 MB. Back up fewer profiles or download large recordings separately.');
    return {name:text(c.name,80,'Voice practice'),date:new Date(c.date).toISOString(),duration:c.duration,type:c.type,audio:c.audio};
   });
-  return {name:p.name.trim().slice(0,60),goal:text(p.goal,300),theme:validTheme(p.theme),language:normalizeLanguage(p.language),state,clips};
+  return {name:p.name.trim().slice(0,60),goal:text(p.goal,300),theme:validTheme(p.theme),language:normalizeLanguage(p.language),reading:normalizeReading(p.reading),state,clips};
  });
  return {format:'true-you-voice-backup',version:1,profiles};
 }
 
 export async function makeBackup(profiles,readClips,encode){
  let bytes=0;const result=[];
- for(const p of profiles){const clips=[];for(const c of await readClips(p.id)){bytes+=c.blob.size;if(bytes>MAX_AUDIO_BYTES)fail('Audio is over 125 MB. Choose one profile, omit recordings, or download recordings separately.');clips.push({name:c.name,date:c.date,duration:c.duration,type:c.blob.type,audio:await encode(c.blob)});}result.push({name:p.name,goal:p.goal,theme:p.theme,language:p.language,state:p.state,clips});}
+ for(const p of profiles){const clips=[];for(const c of await readClips(p.id)){bytes+=c.blob.size;if(bytes>MAX_AUDIO_BYTES)fail('Audio is over 125 MB. Choose one profile, omit recordings, or download recordings separately.');clips.push({name:c.name,date:c.date,duration:c.duration,type:c.blob.type,audio:await encode(c.blob)});}result.push({name:p.name,goal:p.goal,theme:p.theme,language:p.language,reading:p.reading,state:p.state,clips});}
  return validateBackup({format:'true-you-voice-backup',version:1,profiles:result});
 }
 
@@ -38,7 +39,7 @@ export async function makeBackup(profiles,readClips,encode){
 export async function restoreBackup(backup,{storage,saveClips,removeClips,decode,uuid}){
  const value=validateBackup(backup),existing=readProfiles(storage);
  if(existing.length+value.profiles.length>50)fail(`This device has room for ${50-existing.length} more profiles. Select fewer profiles from the backup.`);
- const profiles=value.profiles.map(p=>({id:uuid(),name:p.name,goal:p.goal,theme:p.theme,language:p.language}));
+ const profiles=value.profiles.map(p=>({id:uuid(),name:p.name,goal:p.goal,theme:p.theme,language:p.language,reading:p.reading}));
  const clips=value.profiles.flatMap((p,i)=>p.clips.map(c=>({id:uuid(),profileId:profiles[i].id,name:c.name,date:c.date,duration:c.duration,blob:decode(c.audio,c.type)})));
  const keys=profiles.map(p=>'voice-studio-v1:'+p.id);
  try{

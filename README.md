@@ -56,10 +56,16 @@ See the [development guide](docs/DEVELOPMENT.md) for browser checks, project str
 
 ## Feedback
 
-Found a bug or have an idea? [Open an issue](https://github.com/trueyouaura/True-You-Voice/issues). Include your browser and what happened, but keep personal recordings and private notes out of public reports.
+A private Google Form will collect feedback once its responder link is configured. The site currently routes Feedback to the status information on Voice care & privacy, and does not send visitors to GitHub. Keep response summaries private and email collection optional. No practice data or recordings are attached automatically.
 
 Maintained by [True You Aura](https://github.com/trueyouaura).
 
 ## Backups and moving devices
 
 Use Settings → Download full backup to save profiles, preferences, wording, history, and optional recordings. Choose a backup to restore on the other device. Restored profiles are separate copies; existing profiles are kept. Keep backup files private: they are unencrypted and can contain personal notes and audio. Temporary clips and unsaved form edits are excluded. Progress-only exports cannot be restored as full backups.
+
+## Reading and comfort
+
+Settings offers larger text, extra spacing, reduced movement, a manual or hidden pitch chart, and optional screen reader pitch summaries. Focus view hides extra practice panels while retaining controls and safety guidance. These choices belong to each local profile and travel in full backups. Reduced movement and comfortable spacing are the defaults.
+
+Guided practice includes No countdown: use Next step when ready, pause at any point, and finish early. The session still ends after one hour. Instructions and progress work without sound or a microphone. Voice care includes a plain-language glossary.
