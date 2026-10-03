@@ -1,5 +1,5 @@
-import './settings.js?v=settings-brand-1';
-import { initAccounts } from './profiles.js?v=settings-brand-1';
+import './settings.js?v=profile-language-1';
+import { initAccounts } from './profiles.js?v=profile-language-1';
 import { summarize } from './pitch.js';
 import { routines, buildRoutine } from './routines.js';
 import { readState, writeState, clearState, clipStore } from './storage.js';
