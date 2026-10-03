@@ -1,6 +1,6 @@
-import {readState} from './storage.js?v=launch-2';
+import {readState} from './storage.js?v=dark-default-1';
 import {normalizeLanguage} from './personalization.js';
-import {validTheme,readProfiles,saveProfiles} from './profiles-store.js';
+import {validTheme,readProfiles,saveProfiles} from './profiles-store.js?v=dark-default-1';
 
 export const MAX_BACKUP_BYTES=200*1024*1024;
 const MAX_AUDIO_BYTES=125*1024*1024;

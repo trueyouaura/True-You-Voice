@@ -1,6 +1,6 @@
 import {normalizeLanguage,PRONOUN_CHOICES,languageCopy} from './personalization.js?v=profile-language-1';
-import {readState,clipStore} from './storage.js?v=launch-2';
-import {readProfiles,saveProfiles,validTheme,mergeSessions} from './profiles-store.js?v=profile-language-1';
+import {readState,clipStore} from './storage.js?v=dark-default-1';
+import {readProfiles,saveProfiles,validTheme,mergeSessions} from './profiles-store.js?v=dark-default-1';
 const $=id=>document.getElementById(id),key=id=>`voice-studio-v1:${id}`;
 export function initAccounts(hooks){
  let profiles=readProfiles(localStorage),owner='guest',running=false,applying=false;

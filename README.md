@@ -24,6 +24,8 @@ Pitch is one part of voice. The guides are starting examples, not scores or rule
 
 Open the site, go to **Studio**, and choose **Connect microphone**. Allow microphone access, then speak naturally. You can also use guided practice without a microphone.
 
+First-time visitors start in Transgender Dark. Saved appearance choices are kept.
+
 In **Settings**, create a profile, choose your appearance, and adjust your tagline, pronouns, and pitch guide. Use **Save pitch range** to apply a guide or your own limits.
 
 ## Your practice stays yours

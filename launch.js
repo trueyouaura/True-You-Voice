@@ -1,5 +1,5 @@
-import {makeBackup,validateBackup,restoreBackup,MAX_BACKUP_BYTES} from './backup-data.js?v=launch-2';
-import {clipStore} from './storage.js?v=launch-2';
+import {makeBackup,validateBackup,restoreBackup,MAX_BACKUP_BYTES} from './backup-data.js?v=dark-default-1';
+import {clipStore} from './storage.js?v=dark-default-1';
 const $=id=>document.getElementById(id);
 const encode=blob=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result.split(',')[1]);reader.onerror=()=>reject(Error('Could not read a saved recording.'));reader.readAsDataURL(blob);});
 const decode=(audio,type)=>{const binary=atob(audio),bytes=new Uint8Array(binary.length);for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);return new Blob([bytes],{type});};
