@@ -1,4 +1,4 @@
-import { initAccounts } from './profiles.js?v=color-friendly-1';
+import { initAccounts } from './profiles.js?v=appearance-library-1';
 import { summarize } from './pitch.js';
 import { routines, buildRoutine } from './routines.js';
 import { readState, writeState, clearState, clipStore } from './storage.js';

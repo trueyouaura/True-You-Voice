@@ -1,7 +1,7 @@
 // Applied before the stylesheet loads to avoid flashing a light theme on reload.
 (() => {
   const key = 'voice-studio-theme';
-  const choices = ['trans-fem-light','trans-fem-dark','nonbinary-light','nonbinary-dark','trans-masc-light','trans-masc-dark','blue-gold-light','blue-gold-dark','teal-rose-light','teal-rose-dark','monochrome-light','monochrome-dark'];
+  const choices = ['trans-fem-light','trans-fem-dark','nonbinary-light','nonbinary-dark','trans-masc-light','trans-masc-dark','blue-gold-light','blue-gold-dark','teal-rose-light','teal-rose-dark','monochrome-light','monochrome-dark','ocean-light','ocean-dark','forest-light','forest-dark','sunset-light','sunset-dark','bisexual-light','bisexual-dark','lesbian-light','lesbian-dark','pansexual-light','pansexual-dark','asexual-light','asexual-dark','rainbow-light','rainbow-dark','high-contrast-light','high-contrast-dark'];
   let selected = 'trans-fem-light';
   try { const saved = localStorage.getItem(key); if (choices.includes(saved)) selected = saved; } catch {}
   function apply(value) {

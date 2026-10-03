@@ -6,6 +6,10 @@ A private, accessible static web app for gender-affirming voice practice. Open t
 
 Choose **Appearance** in the header: Trans fem, Nonbinary, or Trans masc, each in Light and Dark. Six additional color-blind-friendly options are **Blue & gold**, **Teal & rose**, and **Monochrome**, each in Light and Dark. These emphasize contrast and text labels rather than relying on hue alone. The pitch line is solid and chosen-range boundaries are dashed in every appearance. The flag-inspired colors change the interface and pitch chart; your training settings remain your own. The selected look is saved locally (`voice-studio-theme`) and kept separately for each profile.
 
+There are also **Ocean**, **Forest**, **Sunset**, **High Contrast**, **Bisexual**, **Lesbian**, **Pansexual**, **Asexual**, and **Rainbow Pride** palettes, each in light and dark: 30 appearances in total. High Contrast offers explicit black/white surfaces and stronger outlines. Identity palettes are optional styling choices, not statements about the person using them.
+
+Color meaning is supplemented by text, numbers, and patterns in every theme. Sampled linear-sRGB simulations cover protan and deutan at severity 0.5 and 1.0, approximate tritan transforms at 0.5 and 1.0, and luminance-based grayscale. All 30 themes passed the fixture's 3,840 sampled text/control/chart contrast comparisons. This is an engineering screen, not clinical certification or a complete WCAG audit. Tritan simulation is approximate; grayscale does not simulate achromatopsia's possible acuity or light-sensitivity effects. Monochrome and High Contrast avoid reliance on hue. See the [Colour implementation and model limitations](https://colour.readthedocs.io/en/master/_modules/colour/blindness/machado2009.html) and [NEI's descriptions of color-vision differences](https://www.nei.nih.gov/eye-health-information/eye-conditions-and-diseases/color-blindness/types-color-vision-deficiency).
+
 ## Use
 
 1. Open the HTTPS site directly in a current Chrome, Edge, Firefox, or Safari browser.
@@ -43,6 +47,8 @@ npm test
 For browser integration checks, open `http://127.0.0.1:4173/__test` and click **Run integration checks**. The development fixture supplies a synthetic 180 Hz audio stream, not a physical microphone. It checks the worker, actual MediaRecorder encoding, IndexedDB, session timing, note escaping, denied permission, and cancellation. It restores session/settings storage afterward. Test fixture files are excluded from the Pages artifact.
 
 Open `http://127.0.0.1:4173/__accounts` and click **Run profile checks** for local-profile checks. These verify creation, edits, theme and history separation, guest isolation, reload persistence, recording ownership, and deletion. No network or physical microphone is used.
+
+Open `http://127.0.0.1:4173/__appearance` and click **Run appearance checks** to reproduce sampled color-vision and contrast checks using the rendered CSS. The development fixture restores appearance storage afterward and is excluded from the Pages artifact.
 
 ## Architecture and limits
 
